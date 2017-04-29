@@ -156,18 +156,18 @@ def deleteitem(wishid):
 @app.route('/addpic/<wishid>', methods=['POST'])
 @login_required
 def wishpic(wishid):
+    message = 'test'
     user = mywish.query.get(wishid)
     user.thumbnail_url = request.json['thumbs']
     db.session.commit()
     if user.thumbnail_url == request.json['thumbs']:
-        
-        flash('Item successfully added :) ')
+        message = 'Item successfully added :) '
        
-        return redirect('/api/user/' + str(g.user.hashed) + '/wishlist')
+        return redirect('/api/user/' + str(g.user.hashed) + '/wishlist',message=message,)
 
     else:
-        flash("Wish not added, some error occurred.")
-        return redirect('/api/user/' + str(g.user.hashed) + '/wishlist')
+        message = "Wish not added, some error occurred."
+        return redirect('/api/user/' + str(g.user.hashed) + '/wishlist',message=message)
 
 
 @app.route('/api/user/sharing/<userid>', methods=['POST', 'GET'])

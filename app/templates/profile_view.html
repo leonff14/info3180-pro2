@@ -26,21 +26,10 @@ body{
 
 <div class="content">
     
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-
-    <div class="alert alert-success">
-      <ul class="flashes">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-{% endwith %}
+{% include 'flash_messages.html' %}
 
     <div class="c1">
-        <h3>{{profile.firstname}} {{profile.lastname}}'s Wishlist</h3>
+        <h3>{{profile.firstname}} {{profile.lastname}}'s Wishlist</h3><br>
         <div class="form-inline">
             <form action="{{ url_for('profile_view',userid=profile.id) }}" class="form-control" method="get">
                 <input class="btn btn-default" type="submit" value="Add a Wish">
@@ -54,7 +43,13 @@ body{
         </div>
     </div>
     <hr/>
+    
+    <p><font color="red">{{message}}</font><br>
+    
     <table>
+        
+            
+    
         {% for wishes in wish %}
             <tr>
                 <td>
